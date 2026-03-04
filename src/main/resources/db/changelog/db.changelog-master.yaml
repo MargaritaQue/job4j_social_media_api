@@ -1,0 +1,56 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1-create-users
+      author: marga
+      changes:
+        - sqlFile:
+            path: classpath:db/changelog/changes/001_create_users.sql
+            relativeToChangelogFile: false
+
+  - changeSet:
+      id: 2-create-posts
+      author: marga
+      changes:
+        - sqlFile:
+            path: classpath:db/changelog/changes/002_create_posts.sql
+            relativeToChangelogFile: false
+
+  - changeSet:
+      id: 3-create-post-images
+      author: marga
+      changes:
+        - sqlFile:
+            path: classpath:db/changelog/changes/003_create_post_images.sql
+            relativeToChangelogFile: false
+
+  - changeSet:
+      id: 4-create-subscriptions
+      author: marga
+      changes:
+        - sqlFile:
+            path: classpath:db/changelog/changes/004_create_subscriptions.sql
+            relativeToChangelogFile: false
+
+  - changeSet:
+      id: 5-create-friend-requests
+      author: marga
+      changes:
+        - sqlFile:
+            path: classpath:db/changelog/changes/005_create_friend_requests.sql
+            relativeToChangelogFile: false
+
+  - changeSet:
+      id: 6-create-friendships
+      author: marga
+      changes:
+        - sqlFile:
+            path: classpath:db/changelog/changes/006_create_friendships.sql
+            relativeToChangelogFile: false
+
+  - changeSet:
+      id: 7-create-messages
+      author: marga
+      changes:
+        - sqlFile:
+            path: classpath:db/changelog/changes/007_create_messages.sql
+            relativeToChangelogFile: false
