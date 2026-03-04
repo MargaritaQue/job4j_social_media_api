@@ -1,8 +1,16 @@
 package ru.job4j.media.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
+@Data
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "messages")
 public class Message {
 
@@ -16,27 +24,10 @@ public class Message {
     @Column(name = "receiver_id")
     private Long receiverId;
 
-    public Long getId() {
-        return id;
-    }
+    @Column(name = "text")
+    private String text;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    @Column(name = "created_at", nullable = false)
+    private LocalDateTime createdAt;
 
-    public Long getSenderId() {
-        return senderId;
-    }
-
-    public void setSenderId(Long senderId) {
-        this.senderId = senderId;
-    }
-
-    public Long getReceiverId() {
-        return receiverId;
-    }
-
-    public void setReceiverId(Long receiverId) {
-        this.receiverId = receiverId;
-    }
 }
