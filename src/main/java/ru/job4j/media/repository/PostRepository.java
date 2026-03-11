@@ -11,7 +11,6 @@ import ru.job4j.media.model.Post;
 import java.time.LocalDateTime;
 import java.util.List;
 
-
 public interface PostRepository extends JpaRepository<Post, Long> {
 
     List<Post> findByUserId (Long userId);
@@ -38,7 +37,6 @@ public interface PostRepository extends JpaRepository<Post, Long> {
             DELETE FROM Post post WHERE post.id = :postId
             """)
     int postDelete(@Param("postId") Long postId);
-
 
     @Query(value = """
             SELECT post FROM Post post WHERE post.userId IN

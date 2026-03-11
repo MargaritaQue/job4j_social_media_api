@@ -22,4 +22,8 @@ public class FriendRequest {
     @Column(name = "friend_id")
     private Long friendId;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
+    private FriendRequestStatus status;
+
 }
