@@ -43,9 +43,9 @@ public interface PostRepository extends JpaRepository<Post, Long> {
             (SELECT s.userFollowed FROM Subscription s WHERE s.userFollower = :userId) ORDER BY post.createdAt DESC
             """,
             countQuery = """
-            SELECT COUNT(post) FROM Post post WHERE post.userId IN
-            (SELECT s.userFollowed FROM Subscription s WHERE s.userFollower = :userId)
-            """
+                    SELECT COUNT(post) FROM Post post WHERE post.userId IN
+                    (SELECT s.userFollowed FROM Subscription s WHERE s.userFollower = :userId)
+                    """
     )
     Page<Post> userPosts(@Param("userId") Long userId, Pageable pageable);
 }
