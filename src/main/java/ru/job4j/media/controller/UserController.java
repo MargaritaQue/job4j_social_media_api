@@ -8,6 +8,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.job4j.media.model.User;
 import ru.job4j.media.repository.UserRepository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @AllArgsConstructor
@@ -19,6 +20,7 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<User> create(@RequestBody User user) {
+        user.setCreatedAt(LocalDateTime.now());
         userRepository.save(user);
         var uri = ServletUriComponentsBuilder
                 .fromCurrentRequestUri()

@@ -20,7 +20,7 @@ public class PostController {
     @PostMapping
     public ResponseEntity<Post> create(@RequestBody Post post,
                                        @RequestParam(required = false) List<String> urls) {
-        postService.createPost(
+        Post created = postService.createPost(
                 post.getUserId(),
                 post.getTittle(),
                 post.getContent(),
@@ -29,11 +29,11 @@ public class PostController {
         var uri = ServletUriComponentsBuilder
                 .fromCurrentRequestUri()
                 .path("/{id}")
-                .buildAndExpand(post.getId())
+                .buildAndExpand(created.getId())
                 .toUri();
         return ResponseEntity.status(HttpStatus.CREATED)
                 .location(uri)
-                .body(post);
+                .body(created);
     }
 
     @PutMapping("/{postId}")

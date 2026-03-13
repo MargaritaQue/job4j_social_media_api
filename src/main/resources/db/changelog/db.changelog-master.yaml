@@ -10,6 +10,7 @@ databaseChangeLog:
   - changeSet:
       id: 2-create-posts
       author: marga
+      validCheckSum: 9:c406158bc74ebd5ba84e8edbffbfaca6
       changes:
         - sqlFile:
             path: classpath:db/changelog/changes/002_create_posts.sql
@@ -53,4 +54,12 @@ databaseChangeLog:
       changes:
         - sqlFile:
             path: classpath:db/changelog/changes/007_create_messages.sql
+            relativeToChangelogFile: false
+
+  - changeSet:
+      id: 8-add-tittle-to-posts
+      author: marga
+      changes:
+        - sqlFile:
+            path: classpath:db/changelog/changes/008_add_tittle_to_posts.sql
             relativeToChangelogFile: false

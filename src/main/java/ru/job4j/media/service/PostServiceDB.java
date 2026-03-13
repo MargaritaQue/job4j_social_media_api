@@ -17,12 +17,13 @@ public class PostServiceDB implements PostService {
     private final PostRepository postRepository;
 
     @Override
-    public void createPost(Long userId, String tittle, String content, List<String> urls) {
+    public Post createPost(Long userId, String tittle, String content, List<String> urls) {
         Post post = new Post(null, userId, tittle, content, LocalDateTime.now(), LocalDateTime.now());
-        postRepository.save(post);
+        Post saved = postRepository.save(post);
         if (urls != null) {
-            urls.forEach(url -> imageService.createImgForPost(post.getId(), url));
+            urls.forEach(url -> imageService.createImgForPost(saved.getId(), url));
         }
+        return saved;
     }
 
     @Override
