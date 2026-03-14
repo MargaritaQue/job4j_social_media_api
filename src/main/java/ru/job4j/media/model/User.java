@@ -1,5 +1,6 @@
 package ru.job4j.media.model;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -16,10 +17,12 @@ import java.time.LocalDateTime;
 @Table(name = "users")
 public class User {
 
+    @Schema(description = "Идентификатор", accessMode = Schema.AccessMode.READ_ONLY)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Schema(description = "Логин", requiredMode = Schema.RequiredMode.REQUIRED, example = "marga", minLength = 6, maxLength = 50)
     @NotBlank(message = "username не может быть пустым")
     @Length(min = 6,
             max = 50,
@@ -27,6 +30,7 @@ public class User {
     @Column(name = "username", nullable = false, unique = true, length = 50)
     private String username;
 
+    @Schema(description = "Email", requiredMode = Schema.RequiredMode.REQUIRED, example = "user@example.com")
     @Email
     @NotBlank(message = "email не может быть пустым")
     @Length(min = 6,
@@ -35,6 +39,7 @@ public class User {
     @Column(name = "email", nullable = false, unique = true, length = 100)
     private String email;
 
+    @Schema(description = "Пароль (хэш)", requiredMode = Schema.RequiredMode.REQUIRED, accessMode = Schema.AccessMode.WRITE_ONLY)
     @NotBlank(message = "password не может быть пустым")
     @Length(min = 6,
             max = 255,
@@ -42,6 +47,7 @@ public class User {
     @Column(name = "password_hash", nullable = false, length = 255)
     private String password;
 
+    @Schema(description = "Дата регистрации", accessMode = Schema.AccessMode.READ_ONLY)
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 }

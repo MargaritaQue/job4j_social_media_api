@@ -1,5 +1,11 @@
 package ru.job4j.media.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +22,7 @@ import ru.job4j.media.service.PostService;
 import java.util.ArrayList;
 import java.util.List;
 
+@Tag(name = "PostController", description = "PostController management APIs")
 @AllArgsConstructor
 @RestController
 @RequestMapping("/api/posts")
@@ -25,6 +32,11 @@ public class PostController {
     private final UserRepository userRepository;
     private final PostRepository postRepository;
 
+    @Operation(summary = "Создать пост", description = "Принимает тело поста и urls изображений.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "201", description = "Пост создан", content = @Content(schema = @Schema(implementation = Post.class))),
+            @ApiResponse(responseCode = "400", description = "Невалидные данные")
+    })
     @PostMapping
     public ResponseEntity<Post> create(@Valid @RequestBody Post post,
                                        @RequestParam(required = false) List<String> urls) {
@@ -44,6 +56,11 @@ public class PostController {
                 .body(created);
     }
 
+    @Operation(summary = "Обновить пост по id")
+    @ApiResponses({
+            @ApiResponse(responseCode = "204", description = "Обновлён"),
+            @ApiResponse(responseCode = "400", description = "Невалидные данные")
+    })
     @PutMapping("/{postId}")
     public ResponseEntity<Void> update(@PathVariable Long postId,
                                        @Valid @RequestBody Post post,
@@ -58,6 +75,11 @@ public class PostController {
         return ResponseEntity.noContent().build();
     }
 
+    @Operation(summary = "Удалить пост по id")
+    @ApiResponses({
+            @ApiResponse(responseCode = "204", description = "Удалён"),
+            @ApiResponse(responseCode = "404", description = "Не найден")
+    })
     @DeleteMapping("/{postId}")
     public ResponseEntity<Void> delete(@PathVariable Long postId,
                                        @RequestParam Long userId) {
@@ -65,6 +87,8 @@ public class PostController {
         return ResponseEntity.noContent().build();
     }
 
+    @Operation(summary = "Посты пользователей по списку id", description = "Возвращает для каждого userId объект UserDTO: userId, username, posts.")
+    @ApiResponse(responseCode = "200", content = @Content(schema = @Schema(implementation = UserDTO[].class)))
     @GetMapping("/by-users")
     public List<UserDTO> getUsersWithPosts(@RequestParam List<Long> userId) {
         List<UserDTO> userDTOS = new ArrayList<>();

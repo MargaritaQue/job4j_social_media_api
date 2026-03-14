@@ -1,5 +1,6 @@
 package ru.job4j.media.model;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -17,14 +18,17 @@ import java.time.LocalDateTime;
 @Table(name = "posts")
 public class Post {
 
+    @Schema(description = "Идентификатор поста", accessMode = Schema.AccessMode.READ_ONLY)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Schema(description = "Идентификатор автора", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull
     @Column(name = "user_id")
     private Long userId;
 
+    @Schema(description = "Заголовок", requiredMode = Schema.RequiredMode.REQUIRED, maxLength = 255)
     @NotBlank(message = "tittle не может быть пустым")
     @Length(min = 1,
             max = 255,
@@ -32,6 +36,7 @@ public class Post {
     @Column(name = "tittle", nullable = false)
     private String tittle;
 
+    @Schema(description = "Текст поста", requiredMode = Schema.RequiredMode.REQUIRED, maxLength = 5000)
     @NotBlank(message = "content не может быть пустым")
     @Length(min = 1,
             max = 5000,
@@ -39,9 +44,11 @@ public class Post {
     @Column(name = "content_txt", nullable = false)
     private String content;
 
+    @Schema(description = "Дата создания", accessMode = Schema.AccessMode.READ_ONLY)
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
+    @Schema(description = "Дата обновления", accessMode = Schema.AccessMode.READ_ONLY)
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 

@@ -1,6 +1,7 @@
 package ru.job4j.media.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDTO {
-    @NotBlank(message = "userid не может быть пустым")
+    @NotNull(message = "userid не может быть пустым")
     private Long userId;
 
     @NotBlank(message = "username не может быть пустым")
