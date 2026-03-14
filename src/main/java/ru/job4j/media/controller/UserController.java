@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import jakarta.validation.Valid;
 import ru.job4j.media.model.User;
 import ru.job4j.media.repository.UserRepository;
 
@@ -19,7 +20,7 @@ public class UserController {
     private final UserRepository userRepository;
 
     @PostMapping
-    public ResponseEntity<User> create(@RequestBody User user) {
+    public ResponseEntity<User> create(@Valid @RequestBody User user) {
         user.setCreatedAt(LocalDateTime.now());
         userRepository.save(user);
         var uri = ServletUriComponentsBuilder

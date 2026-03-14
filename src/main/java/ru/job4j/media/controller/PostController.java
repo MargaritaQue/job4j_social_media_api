@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import jakarta.validation.Valid;
 import ru.job4j.media.dto.UserDTO;
 import ru.job4j.media.model.Post;
 import ru.job4j.media.model.User;
@@ -25,7 +26,7 @@ public class PostController {
     private final PostRepository postRepository;
 
     @PostMapping
-    public ResponseEntity<Post> create(@RequestBody Post post,
+    public ResponseEntity<Post> create(@Valid @RequestBody Post post,
                                        @RequestParam(required = false) List<String> urls) {
         Post created = postService.createPost(
                 post.getUserId(),
@@ -45,7 +46,7 @@ public class PostController {
 
     @PutMapping("/{postId}")
     public ResponseEntity<Void> update(@PathVariable Long postId,
-                                       @RequestBody Post post,
+                                       @Valid @RequestBody Post post,
                                        @RequestParam(required = false) List<String> urls) {
         postService.updatePost(
                 post.getUserId(),
