@@ -20,7 +20,9 @@ import ru.job4j.media.repository.UserRepository;
 import ru.job4j.media.service.PostService;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Tag(name = "PostController", description = "PostController management APIs")
 @AllArgsConstructor
@@ -92,13 +94,21 @@ public class PostController {
     @GetMapping("/by-users")
     public List<UserDTO> getUsersWithPosts(@RequestParam List<Long> userId) {
         List<UserDTO> userDTOS = new ArrayList<>();
-        for (Long id : userId) {
-            User user = userRepository.findById(id).orElse(null);
-            if (user == null) {
-                continue;
-            }
-            List<Post> posts = postRepository.findByUserId(id);
-            userDTOS.add(new UserDTO(user.getId(), user.getUsername(), posts));
+        Iterable<User> users = userRepository.findAllById(userId);
+        List<Long> ids = new ArrayList<>();
+        for (User u : users) {
+            ids.add(u.getId());
+        }
+        List<Post> allPosts = postRepository.findByUserIdIn(ids);
+        Map<Long, List<Post>> postsByUserId = new HashMap<>();
+        for (Post p : allPosts) {
+            postsByUserId
+                    .computeIfAbsent(p.getUserId(), k -> new ArrayList<>())
+                    .add(p);
+        }
+        for (User u : users) {
+            List<Post> posts = postsByUserId.getOrDefault(u.getId(), List.of());
+            userDTOS.add(new UserDTO(u.getId(), u.getUsername(), posts));
         }
         return userDTOS;
     }

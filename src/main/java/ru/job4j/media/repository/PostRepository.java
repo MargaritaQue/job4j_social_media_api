@@ -19,6 +19,8 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
     Page<Post> findAllByOrderByCreatedAtDesc(Pageable pageable);
 
+    List<Post> findByUserIdIn(List<Long> userIds);
+
     @Modifying(clearAutomatically = true)
     @Query("""
             UPDATE Post post SET post.tittle = :tittle, post.content = :content
