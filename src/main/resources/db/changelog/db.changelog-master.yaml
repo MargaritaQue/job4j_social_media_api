@@ -63,3 +63,18 @@ databaseChangeLog:
         - sqlFile:
             path: classpath:db/changelog/changes/008_add_tittle_to_posts.sql
             relativeToChangelogFile: false
+
+  - changeSet:
+      id: 9-create-roles
+      author: marga
+      changes:
+        - sqlFile:
+            path: classpath:db/changelog/changes/009_ddl_create_tables.sql
+            relativeToChangelogFile: false
+  - changeSet:
+      id: 10-create-users-roles
+      author: marga
+      changes:
+        - sqlFile:
+            path: classpath:db/changelog/changes/010_dml_insert_role.sql
+            relativeToChangelogFile: false

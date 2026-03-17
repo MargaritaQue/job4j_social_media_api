@@ -28,4 +28,9 @@ public interface UserRepository extends CrudRepository<User, Long> {
             (SELECT f.userId FROM Friendship f WHERE f.friendId = :userId)
             """)
     List<User> userFriends(@Param("userId") Long userId);
+
+    Optional<User> findByUsername(String username);
+
+    Optional<User> findByEmail(String email);
+
 }

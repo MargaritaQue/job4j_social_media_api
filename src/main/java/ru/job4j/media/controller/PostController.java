@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import jakarta.validation.Valid;
@@ -34,6 +35,7 @@ public class PostController {
     private final UserRepository userRepository;
     private final PostRepository postRepository;
 
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     @Operation(summary = "Создать пост", description = "Принимает тело поста и urls изображений.")
     @ApiResponses({
             @ApiResponse(responseCode = "201", description = "Пост создан", content = @Content(schema = @Schema(implementation = Post.class))),
