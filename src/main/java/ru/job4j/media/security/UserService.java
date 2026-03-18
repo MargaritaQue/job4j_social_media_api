@@ -48,6 +48,6 @@ public class UserService {
         }
         user.setRoles(roles);
         userRepository.save(user);
-        return new RegisterDTO(HttpStatus.OK, "Person registered successfully!" );
+        return new RegisterDTO(HttpStatus.OK, "Person registered successfully!");
     }
 }

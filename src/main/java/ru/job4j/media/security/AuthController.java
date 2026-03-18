@@ -36,7 +36,6 @@ public class AuthController {
                 .body(new MessageResponseDTO(registerDTO.getMessage()));
     }
 
-
     @PostMapping("/signin")
     public ResponseEntity<JwtResponseDTO> authenticateUser(@Valid @RequestBody LoginRequestDTO loginRequestDTO) {
         Authentication authentication = authenticationManager
@@ -50,6 +49,4 @@ public class AuthController {
         return ResponseEntity
                 .ok(new JwtResponseDTO(jwt, userDetails.getId(), userDetails.getUsername(), userDetails.getEmail(), roles));
     }
-
-
 }
