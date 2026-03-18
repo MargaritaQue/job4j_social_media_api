@@ -28,7 +28,7 @@ class UserRepositoryTest {
         var user = new User();
         user.setUsername("John Doe");
         user.setEmail("john.doe@example.com");
-        user.setPassword("abcd");
+        user.setPassword("abcd123");
         user.setCreatedAt(LocalDateTime.now());
         userRepository.save(user);
         var foundPerson = userRepository.findById(user.getId());
@@ -41,12 +41,12 @@ class UserRepositoryTest {
         var user1 = new User();
         user1.setUsername("John Doe");
         user1.setEmail("john.doe@example.com");
-        user1.setPassword("abcd");
+        user1.setPassword("abcd123");
         user1.setCreatedAt(LocalDateTime.now());
         var user2 = new User();
         user2.setUsername("Unos Aarg");
         user2.setEmail("unos.aarg@example.com");
-        user2.setPassword("abcd");
+        user2.setPassword("abcd123");
         user2.setCreatedAt(LocalDateTime.now());
         userRepository.save(user1);
         userRepository.save(user2);
